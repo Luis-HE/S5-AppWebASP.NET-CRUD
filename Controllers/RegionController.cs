@@ -33,7 +33,12 @@ namespace WebApplication_S5_CRUD.Controllers
         {
             using (masterEntities contexto = new masterEntities())
             {
-                return View();
+                int maxRegionID = contexto.Region.Max(r => r.RegionID);
+                var model = new Region
+                {
+                RegionID = maxRegionID +1 
+                };
+                return View(model);
             }
         }
 
@@ -48,7 +53,7 @@ namespace WebApplication_S5_CRUD.Controllers
                     // TODO: Add insert logic here
                     var newRegion = new Region
                     {
-                        RegionID = contexto.Region.Max(r=>r.RegionID)+1,
+                        RegionID = region.RegionID,
                         RegionDescription = region.RegionDescription
                     };
                     contexto.Region.Add(newRegion);
